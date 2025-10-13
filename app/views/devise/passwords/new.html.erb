@@ -1,0 +1,25 @@
+<div class="container px-4">
+  <div class="card w-100 mb-5">
+    <div class="card-body">
+      <h5 class="card-title text-danger h3"><strong>パスワードをお忘れですか？</strong></h5>
+      <p class="card-text">心配ご無用です。入力したメールアドレスに、パスワードリセット用のリンクが送信されます。</p>
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+        <div class="mb-5">
+          <label for="exampleInputEmail1" class="form-label">Eメールアドレス</label>
+          <%= f.email_field :email, autofocus: true, autocomplete: "メールアドレス", placeholder: "Eメールアドレス", class: "form-control" %>
+          <div id="emailHelp" class="form-text">あなたのメールは他の誰とも共有しません。</div>
+        </div>
+      
+        <div class="mb-2">
+        <%= f.submit "パスワード リセット", class: "btn btn-danger w-100" %>
+        </div>
+        <div class="mb-5">
+          <%= link_to "戻る", :back, class: "btn btn-secondary w-100" %>
+        </div>
+      <% end %>
+      <div>
+      </div>
+    </div>
+  </div>
+</div>
