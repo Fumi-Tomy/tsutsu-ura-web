@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row gx-5">
+    <div class="col">
+      <div class="card w-100 mb-3">
+        <div class="card-body">
+          <h5 class="card-title text-danger h3"><strong><span class="ttl">ログイン</span></strong></h5>
+          <p class="card-text">作成したアカウントでログインしてください。</p>
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>      
+            <div class="mb-5 mt-5">
+            <div class="mb-5">
+              <label for="exampleInputEmail1" class="ttl">Eメールアドレス</label>
+              <%= f.email_field :email, autofocus: true, placeholder: "Eメールアドレス", class: "form-control" %>
+              <div id="emailHelp" class="form-text">あなたのメールは他の誰とも共有しません。</div>
+            </div>
+            <div class="mb-5">
+              <label for="exampleInputEmail1" class="ttl">パスワード</label>
+              <%= f.password_field :password, autocomplete: "off", placeholder: "パスワード", class: "form-control" %>
+              <div id="emailHelp" class="form-text">登録した6文字以上のパスワード入力が必要です。</div>
+            </div>          
+            <% if devise_mapping.rememberable? %>
+            <div class="field mb-5">
+              <%= f.check_box :remember_me %>
+              ログインを保持
+            </div>
+            <% end %>            
+            <%= f.submit "ログイン", class: "btn btn-danger w-100" %>
+          <% end %>
+          <div class="mt-4">
+            <%= render "devise/shared/links" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

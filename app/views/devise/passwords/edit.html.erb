@@ -1,0 +1,26 @@
+<div class="container px-4">
+  <div class="card w-100 mb-5">
+    <div class="card-body">
+      <h5 class="card-title text-danger h3"><strong>パスワード変更</strong></h5>
+      <p class="card-text">新しいパスワードを入力してください。安全な新しいパスワードを作成し、それを入力します。パスワードは少なくとも6文字以上で、大文字と小文字、数字、特殊文字を組み合わせることをお勧めします。</p>
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+        <%= f.hidden_field :reset_password_token %>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">変更パスワード</label>
+          <%= f.password_field :password, autocomplete: "off", placeholder: "パスワード", class: "form-control" %>
+          <div id="emailHelp" class="form-text">強力なセキュリティを確保するために、最低でも6文字以上のパスワードが必要です。</div>
+        </div>          
+        <div class="mb-5">
+          <label for="exampleInputEmail1" class="form-label">変更パスワード（確認）</label>
+          <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "パスワード", class: "form-control" %>
+          <div id="emailHelp" class="form-text">パスワード確認： 確認のため、入力したパスワードをもう一度入力してください。同じパスワードを入力する必要があります。</div>
+        </div>
+      
+        <div class="mb-5">
+          <%= f.submit "パスワードを変更する", class: "btn btn-danger btn-block" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="all" style="text-align: left;">
+  <%- if controller_name != 'sessions' %>
+    <font style="font-size:0.9rem;">
+      ユーザ登録がお済みの方は<%= link_to "ログイン", new_session_path(resource_name), class: "btn btn-outline-secondary btn-sm" %>してください。<br />
+      登録ボタンを押すとメールが送信されます。</br>
+      メールに記載されているリンクをクリックするとアカウントが有効化されます。<br/>
+    </font>
+  <% end %>
+  <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+    <font style="font-size:0.9rem;">
+      <%= link_to "新規ユーザ登録", new_registration_path(resource_name), class: "btn btn-outline-secondary btn-sm" %>がお済みでない方は先に登録をお願い致します。
+    </font>
+  <% end %>
+  <br/>
+  <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+    <br/>
+    <%= link_to "パスワードをお忘れですか?", new_password_path(resource_name), class: "btn btn-outline-secondary btn-sm" %><br />
+  <% end %>
+</div>
