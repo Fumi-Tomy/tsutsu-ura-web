@@ -1,0 +1,14 @@
+// custom.scss
+.tag-checkbox-group {
+  max-height: 200px; /* 表示したい最大の高さを指定 */
+  overflow-y: auto;  /* 垂直方向にスクロールバーを表示 */
+  border: 1px solid #dee2e6; /* 区切り線としてボーダーを追加 (オプション) */
+  padding: 10px;     /* 内側の余白 (オプション) */
+  background-color: #f8f9fa; /* 背景色 (オプション) */
+  border-radius: 5px; /* 角丸 (オプション) */
+}
+
+.tag-checkbox-group label {
+  display: block; /* 各ラベルを独立した行に表示 */
+  margin-bottom: 5px; /* チェックボックス間の余白 */
+}

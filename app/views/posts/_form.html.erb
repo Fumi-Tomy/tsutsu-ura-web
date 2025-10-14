@@ -22,14 +22,13 @@
   </div>
 
   <div class="field">
-    <%= form.label :tag_ids, "都道府県タグ (最大3つまで選択)", style: "display: block" %>
-    <div class="tag-checkbox-group" data-max-selection="3">
-      <%# form.collection_check_boxes を使用してタグのチェックボックスを生成 %>
+    <%= form.label :tag_ids, "都道府県タグ", style: "display: block" %>
+    <div class="tag-checkbox-group">
       <%= form.collection_check_boxes :tag_ids, Tag.all.order(:name), :id, :name do |b| %>
-        <label>
-          <%= b.check_box(class: "tag-checkbox") %>
-          <%= b.text %>
-        </label><br>
+        <div class="form-check">
+          <%= b.check_box(class: "form-check-input tag-checkbox") %>
+          <%= b.label(class: "form-check-label") { b.text } %>
+        </div>
       <% end %>
       <%# 選択が0個の場合でもparamsに配列を渡すため %>
       <%= hidden_field_tag "post[tag_ids][]", "" %>
