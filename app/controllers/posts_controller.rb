@@ -28,12 +28,6 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.save
         # タグの保存処理
-        if params[:post][:tag_names].present?
-          params[:post][:tag_names].split(',').map(&:strip).uniq.each do |tag_name|
-            tag = Tag.find_or_create_by(name: tag_name)
-            @post.tags << tag unless @post.tags.include?(tag)
-          end
-        end
         format.html { redirect_to post_url(@post), notice: "Post was successfully created." }
         format.json { render :show, status: :created, location: @post }
       else
@@ -47,14 +41,6 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
-        # 既存のタグを一旦クリアし、新しいタグを保存
-        @post.post_tags.destroy_all
-        if params[:post][:tag_names].present?
-          params[:post][:tag_names].split(',').map(&:strip).uniq.each do |tag_name|
-            tag = Tag.find_or_create_by(name: tag_name)
-            @post.tags << tag unless @post.tags.include?(tag)
-          end
-        end
         format.html { redirect_to post_url(@post), notice: "Post was successfully updated." }
         format.json { render :show, status: :ok, location: @post }
       else
@@ -82,6 +68,6 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :body, :admin_id)
+      params.require(:post).permit(:title, :body, :admin_id, tag_ids: [])
     end
 end

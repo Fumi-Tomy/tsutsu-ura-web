@@ -5,7 +5,7 @@
 <% if admin_signed_in? && current_admin == @post.admin %>
   <div>
     <%= link_to "Edit this post", edit_post_path(@post) %> |
-    <%= link_to "Destroy this post", @post, class: "delete-post-link", data: { confirm: 'Are you sure?' } %>
+    <%= button_to "Destroy this post", @post, method: :delete %>
   </div>
 <% end %>
 
@@ -17,7 +17,7 @@
     <% @post.comments.each do |comment| %>
       <p><%= comment.body %></p>
       <% if admin_signed_in? %>
-        <%= link_to "Delete Comment", @post, class: "delete-comment-link", data: { confirm: 'Are you sure?' } %>
+        <%= button_to "Delete Comment", post_comment_path(@post, comment), method: :delete %>
       <% end %>
       <hr>
     <% end %>
