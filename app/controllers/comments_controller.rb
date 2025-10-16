@@ -24,6 +24,6 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:body) # コメントに名前を追加する場合は :author_name なども許可
+    params.require(:comment).permit(:name, :body) 
   end
 end

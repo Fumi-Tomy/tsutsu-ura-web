@@ -1,12 +1,12 @@
 <% content_for :title, "Editing post" %>
 
-<h1>Editing post</h1>
+<h1>編集</h1>
 
 <%= render "form", post: @post %>
 
 <br>
 
 <div>
-  <%= link_to "Show this post", @post %> |
-  <%= link_to "Back to posts", posts_path %>
+  <%= link_to "記事に戻る", @post %> |
+  <%= link_to "記事一覧に戻る", posts_path %>
 </div>
