@@ -22,6 +22,18 @@
     <!-- device -->
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
-    <%= yield %>
+
+  <body class="d-flex flex-column vh-100">
+    <%# ヘッダーパーシャルを読み込む %>
+    <%= render 'layouts/header' %>
+
+    <%# 各ページのコンテンツがここに表示される %>
+    <main class="container my-4">
+      <%= yield %>
+    </main>
+
+    <%# フッターパーシャルを読み込む %>
+    <%= render 'layouts/footer' %>
+
   </body>
 </html>

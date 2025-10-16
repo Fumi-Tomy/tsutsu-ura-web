@@ -13,9 +13,15 @@ Rails.application.routes.draw do
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
+  # Topページへのルーティング
+  root 'static_pages#top'
+
+  # Podcastページへのルーティング
+  get 'podcast', to: 'static_pages#podcast'
+
   resources :posts do
     resources :comments, only: [:create, :destroy] # CommentはPostに紐付いて作成・削除
   end
   resources :tags, only: [:index, :show] # タグの一覧表示や、タグごとの投稿表示
-  root "posts#index" # トップページを投稿一覧に設定
+  #  root "posts#index"
 end

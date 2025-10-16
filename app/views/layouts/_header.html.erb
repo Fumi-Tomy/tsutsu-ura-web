@@ -1,0 +1,31 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <%# Topボタン %>
+      <%= link_to "つつうらじお", root_path, class: "navbar-brand" %>
+
+      <%# ハンバーガーメニューのボタン %>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <%# ナビゲーションリンク %>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <%# Postsボタン %>
+            <%= link_to "Posts", posts_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%# Podcastボタン %>
+            <%= link_to "Podcast", podcast_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%# Youtubeボタン (target: "_blank"で新しいタブで開く) %>
+            <%= link_to "Youtube", "https://www.youtube.com/@SeikyuLine", target: "_blank", rel: "noopener", class: "nav-link" %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
