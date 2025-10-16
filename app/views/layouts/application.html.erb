@@ -29,6 +29,7 @@
 
     <%# 各ページのコンテンツがここに表示される %>
     <main class="container my-4">
+      <%= render_breadcrumbs(builder: ::Bootstrap5BreadcrumbsBuilder) %>
       <%= yield %>
     </main>
 

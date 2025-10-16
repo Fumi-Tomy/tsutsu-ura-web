@@ -5,20 +5,27 @@ class PostsController < ApplicationController
   # GET /posts or /posts.json
   def index
     @posts = Post.all
+    add_breadcrumb "Top", root_path
+    add_breadcrumb "Posts", posts_path
   end
 
   # GET /posts/1 or /posts/1.json
   def show
     @comment = Comment.new # コメント投稿フォーム用    
+    add_breadcrumb "Top", root_path
+    add_breadcrumb "Posts", posts_path
+    add_breadcrumb "Post", @post
   end
 
   # GET /posts/new
   def new
+    add_breadcrumb "Top", root_path
     @post = current_admin.posts.build # ログイン中のAdminに紐付けてPostを作成
   end
 
   # GET /posts/1/edit
   def edit
+    add_breadcrumb "Top", root_path
   end
 
   # POST /posts or /posts.json

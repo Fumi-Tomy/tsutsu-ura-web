@@ -23,5 +23,4 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :destroy] # CommentはPostに紐付いて作成・削除
   end
   resources :tags, only: [:index, :show] # タグの一覧表示や、タグごとの投稿表示
-  #  root "posts#index"
 end
