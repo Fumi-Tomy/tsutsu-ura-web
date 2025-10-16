@@ -4,20 +4,21 @@
 
 <% if admin_signed_in? && current_admin == @post.admin %>
   <div>
-    <%= link_to "Edit this post", edit_post_path(@post) %> |
-    <%= button_to "Destroy this post", @post, method: :delete %>
+    <%= link_to "編集", edit_post_path(@post) %> |
+    <%= button_to "記事削除", @post, method: :delete %>
   </div>
 <% end %>
 
-<%= link_to "Back to posts", posts_path %>
+<%= link_to "記事一覧", posts_path %>
 
-<h2>Comments</h2>
+<h2>コメント</h2>
 <% if @post.comments.any? %>
   <div id="comments">
     <% @post.comments.each do |comment| %>
+      <p><%= comment.name %></p>
       <p><%= comment.body %></p>
       <% if admin_signed_in? %>
-        <%= button_to "Delete Comment", post_comment_path(@post, comment), method: :delete %>
+        <%= button_to "コメント削除", post_comment_path(@post, comment), method: :delete %>
       <% end %>
       <hr>
     <% end %>
@@ -26,7 +27,7 @@
   <p>まだコメントはありません。</p>
 <% end %>
 
-<h3>Add a Comment</h3>
+<h3>コメント追加</h3>
 <%= form_with(model: [@post, @comment], local: true) do |form| %>
   <% if @comment.errors.any? %>
     <div id="error_explanation">
@@ -40,8 +41,14 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :body %>
-    <%= form.text_area :body %>
+    <div>
+      <%= form.label :ラジオネーム %>
+      <%= form.text_area :name %>
+    </div>
+    <div>
+      <%= form.label :コメント %>
+      <%= form.text_area :body %>
+    </div>
   </div>
 
   <div class="actions">
