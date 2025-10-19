@@ -1,8 +1,10 @@
 // Entry point for the build script in your package.json
 import * as bootstrap from "bootstrap"
-import React from "react";
-import ReactDOM from "react-dom/client";
+import "trix";
+import "./controllers";
+import "@rails/actiontext";
 
 document.addEventListener('DOMContentLoaded', () => {
 
 });
+

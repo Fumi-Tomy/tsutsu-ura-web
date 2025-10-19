@@ -30,5 +30,8 @@ module Blog
     # 標準時間を東京に設定
     config.time_zone = 'Tokyo'    
 
+    # Active Storageの画像処理にImageMagickを使用するよう明示的に設定
+    config.active_storage.variant_processor = :mini_magick
+
   end
 end
