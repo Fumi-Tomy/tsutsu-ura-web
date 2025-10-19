@@ -30,23 +30,26 @@
   max-width: 100% !important;
 }
 
+/*
+ * Custom Styles for Action Text
+ * -------------------------------------------------- */
+
 /* Action Textのコンテナ全体 */
 .trix-content {
   line-height: 1.6;
 }
 
-/* 添付された画像を囲む <figure> 要素 (より具体的に指定) */
+/* 単体で添付された画像を囲む <figure> 要素 */
 .trix-content figure.attachment {
-  /* ここで画像の最大表示幅を好きな値に設定してください */
-  max-width: 300px !important;
+  /* 画像の最大表示幅 */
+  max-width: 300px !important; /* お好みのサイズに調整してください */
   
-  /* 中央寄せにする場合 */
+  /* 中央寄せ */
   margin: 2rem auto !important; 
 }
 
-/* 画像そのもの <img> */
+/* 単体の画像そのもの <img> */
 .trix-content figure.attachment img {
-  /* 画像は常に親要素(figure)の幅いっぱいに広がるようにするのがベストです */
   width: 100% !important; 
   height: auto;
   border-radius: 8px;
@@ -55,4 +58,32 @@
 /* 画像の下のキャプション（ファイル名とサイズ）を非表示にする */
 .trix-content figure.attachment figcaption {
   display: none !important;
+}
+
+/*
+ * 複数画像（ギャラリー）表示時のスタイル
+ * -------------------------------------------------- */
+.trix-content .attachment-gallery {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 1rem !important; /* 画像間の余白 */
+  margin: 2rem 0 !important;
+}
+
+/* ギャラリー内の各画像を囲む <figure> 要素 */
+.trix-content .attachment-gallery figure.attachment {
+  /* ギャラリー内のfigureは中央寄せマージンをリセット */
+  margin: 0 !important;
+  
+  /* 2列表示の場合の幅を計算 (gapの半分を引く) */
+  flex-basis: calc(50% - 0.5rem) !important;
+  max-width: calc(50% - 0.5rem) !important;
+}
+
+/* 画面が小さいとき (768px以下) は1列にするレスポンシブ対応 */
+@media (max-width: 768px) {
+  .trix-content .attachment-gallery figure.attachment {
+    flex-basis: 100% !important;
+    max-width: 100% !important;
+  }
 }

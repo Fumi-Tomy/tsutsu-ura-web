@@ -1,2 +1,74 @@
-<h1>つつうらじおWebサイト</h1>
-<p>ようこそ！</p>
+<%# --- 1. ヒーローセクション --- %>
+<div class="container-fluid bg-dark text-white text-center p-5 mb-5">
+  <div class="container">
+    <h1 class="display-3 fw-bold">つつうらじおへようこそ！</h1>
+    <p class="lead my-4 col-md-8 mx-auto">つつうらじおは日本全国津々浦々の旅行体験をゆるーく雑談しているPodcastです。<br>
+    音声にはない視覚情報をお届けするためブログもやってます。Youtubeはちがみの鉄道チャンネルです。</p>
+  </div>
+</div>
+
+<div class="container">
+
+  <%# --- 2. 最新のブログ記事 --- %>
+  <section id="latest-posts" class="my-5">
+    <h2 class="text-center mb-4">最新のブログ記事</h2>
+    <% if @latest_posts.any? %>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <%# posts/_post.html.erb パーシャルを再利用して記事を表示 %>
+        <%= render partial: "posts/post", collection: @latest_posts %>
+      </div>
+      <div class="text-center mt-4">
+        <%= link_to "もっと記事を読む", posts_path, class: "btn btn-outline-primary" %>
+      </div>
+    <% else %>
+      <p class="text-center">まだ投稿がありません。</p>
+    <% end %>
+  </section>
+
+  <hr class="my-5">
+
+  <%# --- 3. コンテンツ紹介 (Podcast & YouTube) --- %>
+  <section id="contents" class="my-5">
+    <h2 class="text-center mb-4">その他のコンテンツ</h2>
+    <div class="row text-center">
+      <%# --- Podcast紹介 --- %>
+      <div class="col-lg-6 mb-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <div class="fs-1 text-primary"><i class="bi bi-mic-fill"></i></div>
+            <h3 class="card-title mt-3">Podcast</h3>
+            <p class="card-text">日本全国☆津々浦々から雑談をおとどけ</p>
+            <%= link_to "Podcastを聴く", podcast_path, class: "btn btn-outline-secondary" %>
+          </div>
+        </div>
+      </div>
+      <%# --- YouTube紹介 --- %>
+      <div class="col-lg-6 mb-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <div class="fs-1 text-danger"><i class="bi bi-youtube"></i></div>
+            <h3 class="card-title mt-3">YouTube</h3>
+            <p class="card-text">西急電鉄（鉄道動画ちゃんねる）は日本全国の鉄道動画をアップロードしてるチャンネルです。</p>
+            <a href="https://www.youtube.com/@SeikyuLine" class="btn btn-outline-secondary" target="_blank" rel="noopener">チャンネルを見る</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="my-5">
+
+  <%# --- 4. 運営者紹介 --- %>
+  <section id="about-me" class="my-5 bg-light p-5 rounded">
+    <div class="row align-items-center">
+      <div class="col-md-9">
+        <h2 class="mb-3">つつうらじおについて</h2>
+        <p>つつうらじおはトミーとちがみの２人で配信しています。ちがみが毎月旅行しているのでそれをコンテンツにしようと考えて活動を始めました。<br>
+        気分転換や旅行の参考になれば幸いです！<br>
+        トミーは音声編集やサイト作成など裏方をやってます。</p>
+        <%# link_to "さらに詳しく", about_path, class: "btn btn-sm btn-outline-dark" %>
+      </div>
+    </div>
+  </section>
+
+</div> <%# --- container --- %>

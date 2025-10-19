@@ -23,7 +23,6 @@
         <%= link_to "クリア", posts_path, class: "btn btn-outline-secondary ms-2" %>
       <% end %>
     <% end %>
-    <%# --- ここまでフィルター部分 --- %>
 
     <%# --- 管理者向け：新規作成ボタン --- %>
     <% if admin_signed_in? %>
@@ -42,6 +41,17 @@
       </div>
     <% end %>
   </div>
+
+  <%# --- Kaminari ページネーションリンク --- %>
+  <div class="d-flex justify-content-center mt-5">
+    <%= paginate @posts %>
+  </div>
+
 <% else %>
-  <p>まだ投稿がありません。</p>
+  <%# --- 投稿が0件の場合のメッセージ --- %>
+  <% if params[:tag_id].present? %>
+    <p>このタグの記事は見つかりませんでした。</p>
+  <% else %>
+    <p>まだ投稿がありません。</p>
+  <% end %>
 <% end %>
