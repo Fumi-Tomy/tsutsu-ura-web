@@ -1,2 +1,63 @@
-<h1>つつうらじお</h1>
-<p>ここではポッドキャストの情報を発信します。</p>
+<%# --- 1. ヒーローセクション --- %>
+<div class="bg-light p-5 mb-5 text-center">
+  <div class="container">
+    <h1 class="display-4 fw-bold">日本全国☆津々浦々から雑談をおとどけ</h1>
+    <p class="lead my-4">つつうらから観光や移動をゆるっと雑談するらじお</p>
+    <a href="https://open.spotify.com/show/3iKOVGYyuXL04rfv855WnN" class="btn btn-primary btn-lg" target="_blank" rel="noopener">
+      <i class="bi bi-spotify"></i> Spotifyで今すぐ聴く
+    </a>
+  </div>
+</div>
+
+<div class="container">
+
+  <%# --- 2. 番組紹介 --- %>
+  <section id="about" class="my-5">
+    <div class="row align-items-center">
+      <div class="col-md-4 text-center">
+        <%# `app/assets/images/` に番組のカバーアートを配置してください %>
+        <%= image_tag 'placeholder.png', class: "img-fluid rounded shadow-lg", alt: "つつうらじお" %>
+      </div>
+      <div class="col-md-8">
+        <h2 class="mb-3">つつうらじおとは？</h2>
+        <p>普段、家から全くでないインドアなトミーが、日本全国津々浦々の旅行先にいるアウトドアなちがみと雑談しています</p>
+        <ul>
+          <li>対象リスナー：旅行に興味がある人、鉄道に興味がある人</li>
+          <li>配信頻度：毎月１日更新、余力があれば１５日も更新</li>
+          <li>番組の雰囲気：いい大人になった同級生２人でわいわい雑談してます</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <hr class="my-5">
+
+  <%# --- 3. 各種プラットフォームへのリンク --- %>
+  <section id="listen" class="my-5 text-center">
+    <h2 class="mb-4">Spotifyで配信中</h2>
+    <div class="d-flex justify-content-center flex-wrap gap-3 mt-4">
+      <a href="https://open.spotify.com/show/3iKOVGYyuXL04rfv855WnN" class="btn btn-outline-dark btn-lg" target="_blank" rel="noopener"><i class="bi bi-spotify"></i> Spotify</a>
+    </div>
+  </section>
+
+</div> <%# --- container --- %>
+
+
+<%# --- 4. 最新エピソードの埋め込み --- %>
+<%# このセクションだけコンテナの外に出して、全幅の背景色を付けます %>
+<section id="latest-episode" class="bg-dark text-white py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">最新エピソードを聴く</h2>
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <!--
+          【Spotify埋め込みコードの取得方法】
+          1. SpotifyであなたのPodcastエピソードを開く
+          2. 「...」メニューから「シェア」→「エピソードを埋め込む」を選択
+          3. 表示された <iframe> コードをコピーして、以下の場所に貼り付ける
+        -->
+        <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/episode/3M7waXPeS8EzQTmczo3NpX?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+</section>

@@ -4,7 +4,7 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    posts_scope = Post.order(created_at: :desc)
+    posts_scope = Post.includes(:tags, :rich_text_body).order(created_at: :desc)
     add_breadcrumb "Top", root_path
     add_breadcrumb "Posts", posts_path
     # もしURLに tag_id パラメータが存在すれば、そのタグで絞り込む
@@ -17,16 +17,28 @@ class PostsController < ApplicationController
       @posts = posts_scope
     end
 
+    # Kaminariによるページネーションを追加
+    @posts = @posts.page(params[:page]).per(9)
+
     # ドロップダウンに表示するための全てのタグリストを取得
     @tags = Tag.all
   end
 
   # GET /posts/1 or /posts/1.json
   def show
-    @comment = Comment.new # コメント投稿フォーム用    
     add_breadcrumb "Top", root_path
     add_breadcrumb "Posts", posts_path
     add_breadcrumb "Post", @post
+
+    # 投稿に紐づくコメントを新しい順に並び替え
+    @comments = @post.comments.order(created_at: :desc)
+    
+    # Kaminariを使って10件ごとにページ分割する
+    # URLの?page=X パラメータを自動で読み取ってくれる
+    @comments_for_display = @comments.page(params[:page]).per(10)
+
+    # 新規コメント投稿用のインスタンス
+    @comment = @post.comments.build
   end
 
   # GET /posts/new

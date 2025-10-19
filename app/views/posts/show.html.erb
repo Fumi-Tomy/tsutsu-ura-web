@@ -1,57 +1,90 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @post %>
-
-<% if admin_signed_in? && current_admin == @post.admin %>
-  <div>
-    <%= link_to "編集", edit_post_path(@post) %> |
-    <%= button_to "記事削除", @post, method: :delete %>
+<%# --- お知らせ (notice) --- %>
+<% if notice.present? %>
+  <div class="alert alert-success" role="alert">
+    <%= notice %>
   </div>
 <% end %>
 
-<%= link_to "記事一覧", posts_path %>
+<%# --- 記事のメインコンテンツ --- %>
+<article class="blog-post bg-white p-4 p-md-5 rounded shadow-sm mb-5">
+  
+  <%# --- ヘッダーエリア：タイトル、日付、タグ --- %>
+  <header class="blog-post-header mb-4">
+    <h1 class="blog-post-title"><%= @post.title %></h1>
+    <p class="blog-post-meta text-muted">
+      公開日: <%= l @post.created_at, format: :long %> /
+      更新日: <%= l @post.updated_at, format: :long %>
+    </p>
 
-<h2>コメント</h2>
-<% if @post.comments.any? %>
-  <div id="comments">
-    <% @post.comments.each do |comment| %>
-      <p><%= comment.name %></p>
-      <p><%= comment.body %></p>
-      <% if admin_signed_in? %>
-        <%= button_to "コメント削除", post_comment_path(@post, comment), method: :delete %>
-      <% end %>
-      <hr>
-    <% end %>
-  </div>
-<% else %>
-  <p>まだコメントはありません。</p>
-<% end %>
-
-<h3>コメント追加</h3>
-<%= form_with(model: [@post, @comment], local: true) do |form| %>
-  <% if @comment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
-      <ul>
-        <% @comment.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+    <%# --- タグ --- %>
+    <% if @post.tags.any? %>
+      <div class="tags-area">
+        <% @post.tags.each do |tag| %>
+          <span class="badge bg-info text-dark me-1"><%= tag.name %></span>
         <% end %>
-      </ul>
+      </div>
+    <% end %>
+  </header>
+
+  <hr>
+
+  <%# --- 本文 (Action Text) --- %>
+  <%# この .trix-content クラスが重要 %>
+  <div class="trix-content mt-4">
+    <%= @post.body %>
+  </div>
+
+</article>
+
+<%# --- 管理者向けメニュー --- %>
+<% if admin_signed_in? && current_admin == @post.admin %>
+  <div class="admin-menu text-end mb-4">
+    <%= link_to "編集", edit_post_path(@post), class: "btn btn-secondary" %>
+    <%= button_to "記事削除", @post, method: :delete, data: { turbo_confirm: "本当に削除しますか？" }, class: "btn btn-danger d-inline-block ms-2" %>
+  </div>
+<% end %>
+
+<%# --- コメントセクション --- %>
+<section id="comments-section" class="mb-5">
+  <h2 class="mb-4">コメント (<%= @post.comments.count %>件)</h2>
+  
+  <%# --- コメント一覧 --- %>
+  <% if @comments.any? %>
+    <div id="comments">
+      <% @comments_for_display.each do |comment| %>
+        <div class="card mb-3">
+          <div class="card-body">
+            <p class="card-text"><%= simple_format(h(comment.body)) %></p>
+            <footer class="blockquote-footer text-end">
+              <%= h comment.name %>
+              <cite title="投稿日時"><%= l comment.created_at, format: :short %></cite>
+              
+              <%# 管理者向け：コメント削除ボタン %>
+              <% if admin_signed_in? %>
+                <%= button_to "削除", post_comment_path(@post, comment), method: :delete, class: "btn btn-outline-danger btn-sm ms-2" %>
+              <% end %>
+            </footer>
+          </div>
+        </div>
+      <% end %>
     </div>
+
+    <div class="d-flex justify-content-center mt-4">
+      <%= paginate @comments_for_display %>
+    </div>
+
+  <%# --- コメント投稿フォーム --- %>
+  <div class="card shadow-sm mb-5">
+    <div class="card-body">
+      <h5 class="card-title">コメントを追加</h5>
+      <%= render "comments/form", post: @post, comment: @comment %>
+    </div>
+  </div>
+
+  <% else %>
+    <p>まだコメントはありません。</p>
   <% end %>
 
-  <div class="field">
-    <div>
-      <%= form.label :ラジオネーム %>
-      <%= form.text_area :name %>
-    </div>
-    <div>
-      <%= form.label :コメント %>
-      <%= form.text_area :body %>
-    </div>
-  </div>
+</section>
 
-  <div class="actions">
-    <%= form.submit "Create Comment" %>
-  </div>
-<% end %>
+<%= link_to "記事一覧へ戻る", posts_path, class: "btn btn-outline-secondary" %>
