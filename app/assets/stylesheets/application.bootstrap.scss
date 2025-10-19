@@ -5,3 +5,11 @@
 
 @import 'custom';
 @import 'actiontext';
+
+// --- チェックボックスを縦方向に並び替えるためのカスタムスタイル ---
+div.checkbox-grid-vertical-flow {
+  display: grid !important;
+  gap: 0.5rem !important; /* チェックボックス間の余白 */
+  grid-auto-flow: column !important; /* ★★★ これが縦方向に並べるための魔法の指定 ★★★ */
+  grid-template-rows: repeat(8, auto) !important;
+}
