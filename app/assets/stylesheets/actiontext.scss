@@ -30,15 +30,29 @@
   max-width: 100% !important;
 }
 
-/* 添付ファイル（画像や動画など）を囲む <figure> タグに付与されるクラス */
-.trix-content .attachment__figure {
-  max-width: 400px; /* コンテナからはみ出さないようにする */
-  margin: 0 0 1em 0; /* 適宜マージンを設定 */
+/* Action Textのコンテナ全体 */
+.trix-content {
+  line-height: 1.6;
 }
 
-/* 添付ファイル内の画像 <img> タグに直接スタイルを適用 */
-.trix-content .attachment__image {
-  max-width: 400px; /* 親要素の幅に合わせる */
-  height: auto;    /* アスペクト比を維持する */
-  border-radius: 8px; /* 角を丸くするなど */
+/* 添付された画像を囲む <figure> 要素 (より具体的に指定) */
+.trix-content figure.attachment {
+  /* ここで画像の最大表示幅を好きな値に設定してください */
+  max-width: 300px !important;
+  
+  /* 中央寄せにする場合 */
+  margin: 2rem auto !important; 
+}
+
+/* 画像そのもの <img> */
+.trix-content figure.attachment img {
+  /* 画像は常に親要素(figure)の幅いっぱいに広がるようにするのがベストです */
+  width: 100% !important; 
+  height: auto;
+  border-radius: 8px;
+}
+
+/* 画像の下のキャプション（ファイル名とサイズ）を非表示にする */
+.trix-content figure.attachment figcaption {
+  display: none !important;
 }

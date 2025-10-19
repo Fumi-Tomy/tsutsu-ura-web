@@ -4,9 +4,21 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.all
+    posts_scope = Post.order(created_at: :desc)
     add_breadcrumb "Top", root_path
     add_breadcrumb "Posts", posts_path
+    # もしURLに tag_id パラメータが存在すれば、そのタグで絞り込む
+    if params[:tag_id].present?
+      # .joins(:tags) でpostsテーブルとtagsテーブルを結合
+      # .where(tags: { id: params[:tag_id] }) で指定されたタグIDを持つ投稿を絞り込む
+      @posts = posts_scope.joins(:tags).where(tags: { id: params[:tag_id] })
+    else
+      # tag_id がなければ、すべての投稿を表示
+      @posts = posts_scope
+    end
+
+    # ドロップダウンに表示するための全てのタグリストを取得
+    @tags = Tag.all
   end
 
   # GET /posts/1 or /posts/1.json

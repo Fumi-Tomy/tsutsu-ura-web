@@ -1,23 +1,43 @@
-<div id="<%= dom_id post %>">
-  <p>
-    <strong>タイトル:</strong>
-    <%= post.title %>
-  </p>
+<%# --- Bootstrap Cardコンポーネント --- %>
+<%# dom_id(post) は残しておくとTurboなどで便利 %>
+<div class="card h-100 shadow-sm" id="<%= dom_id post %>">
 
-  <p>
-    <strong>内容:</strong>
-    <%= post.body %>
-  </p>
-
-<% if post.tags.any? %>
-  <p>
-    <strong>タグ:</strong>
-    <% post.tags.each do |tag| %>
-      <%= link_to tag.name, tag_path(tag), class: "badge bg-info text-dark me-1" %> <%# 例: Bootstrapのバッジで表示 %>
+  <%# --- サムネイル --- %>
+  <%# 記事に添付画像がある場合、最初の1枚を表示する %>
+  <% if post.body.embeds.select(&:image?).any? %>
+    <%# 最初の画像を取得 %>
+    <% first_image = post.body.embeds.find(&:image?) %>
+    <%# image_tagで画像を表示。variantでリサイズも可能 %>
+    <%= link_to post do %>
+      <%= image_tag first_image, class: "card-img-top", style: "aspect-ratio: 16 / 9; object-fit: cover;" %>
     <% end %>
-  </p>
-<% else %>
-  <p>タグは設定されていません。</p>
-<% end %>
+  <% else %>
+    <%# 画像がない場合のプレースホルダー %>
+    <%= link_to post do %>
+      <%= image_tag 'placeholder.png', class: "card-img-top", style: "aspect-ratio: 16 / 9; object-fit: cover;" %>
+    <% end %>
+  <% end %>
 
+  <%# --- カードの本文エリア --- %>
+  <div class="card-body d-flex flex-column">
+    <%# --- タイトル（記事詳細へのリンク） --- %>
+    <h5 class="card-title">
+      <%= link_to post.title, post, class: "text-decoration-none" %>
+    </h5>
+
+    <%# --- タグ（リンクなし） --- %>
+    <div class="mb-2">
+      <% if post.tags.any? %>
+        <% post.tags.each do |tag| %>
+          <span class="badge bg-info text-dark me-1"><%= tag.name %></span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <%# --- 更新日時 --- %>
+    <%# mt-autoで日付をカード下部に配置 %>
+    <p class="card-text mt-auto">
+      <small class="text-muted">更新日時: <%= l post.updated_at, format: :short %></small>
+    </p>
+  </div>
 </div>
