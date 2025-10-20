@@ -9,7 +9,10 @@ class CommentsController < ApplicationController
     else
       # エラーハンドリング（例: showページを再描画してエラーを表示）
       flash[:alert] = 'コメントの投稿に失敗しました。'
-      redirect_to post_path(@post)
+      @comments = @post.comments.order(created_at: :desc)
+      @comments_for_display = @comments.page(params[:page]).per(10)
+      # render 'posts/show' で、postsコントローラーのshowアクションのViewを明示的に指定
+      render 'posts/show', status: :unprocessable_entity
     end
   end
 
