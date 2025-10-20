@@ -1,11 +1,21 @@
 ja:
   activerecord:
+    models:
+      comment: コメント
     attributes:
       admin:
         current_password: パスワード
         password_confirmation: パスワードの確認
         password: パスワード
         email: メールアドレス
+      comment:
+        body: コメント
+    errors:
+      models:
+        comment:
+          attributes:
+            body:
+              blank: を入力してください # エラーメッセージをカスタマイズ
   time:
     formats:
         full_date: "%Y年%m月%d日 (%a)"

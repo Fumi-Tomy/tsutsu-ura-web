@@ -73,6 +73,10 @@
       <%= paginate @comments_for_display %>
     </div>
 
+  <% else %>
+    <p>まだコメントはありません。</p>
+  <% end %>
+
   <%# --- コメント投稿フォーム --- %>
   <div class="card shadow-sm mb-5">
     <div class="card-body">
@@ -80,10 +84,6 @@
       <%= render "comments/form", post: @post, comment: @comment %>
     </div>
   </div>
-
-  <% else %>
-    <p>まだコメントはありません。</p>
-  <% end %>
 
 </section>
 
