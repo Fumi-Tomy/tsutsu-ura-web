@@ -41,14 +41,19 @@ RUN gem install bundler --version $BUNDLER_VERSION
 # Gem のインストール
 # --jobs $(nproc): 並列でインストール
 # --retry 3: 失敗時に3回リトライ
-RUN bundle install --jobs $(nproc) --retry 3 --without test
+RUN bundle install --jobs $(nproc) --retry 3
 
 #アプリケーションのソースコードをコピー
 COPY . .
 
-# Rails アプリケーションのポートを公開
-# EXPOSE 3000
+ENV SECRET_KEY_BASE=dummy
+RUN bundle exec rails assets:precompile
 
-# コンテナ起動時に実行されるコマンド
-# development 環境では Rails サーバーを起動
-# CMD ["bin/rails", "server", "-b", "0.0.0.0"]
+# 起動スクリプトをコンテナにコピーして実行権限を付与
+RUN chmod +x /usr/src/blog/entrypoint.sh
+
+# このスクリプトをエントリーポイントとして設定
+ENTRYPOINT ["entrypoint.sh"]
+
+# デフォルトの起動コマンドとしてPumaサーバーを指定
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
