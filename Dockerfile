@@ -53,7 +53,7 @@ RUN bundle exec rails assets:precompile
 RUN chmod +x /usr/src/blog/entrypoint.sh
 
 # このスクリプトをエントリーポイントとして設定
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["./entrypoint.sh"]
 
 # デフォルトの起動コマンドとしてPumaサーバーを指定
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
