@@ -20,7 +20,7 @@ RUN apk update --no-cache && \
         nodejs \
         npm \
         yarn \
-        imagemagick \
+        vips-dev \
         libjpeg-turbo-dev \
         libpng-dev \
         libpq \
