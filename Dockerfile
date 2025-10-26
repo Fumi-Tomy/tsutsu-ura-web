@@ -47,6 +47,11 @@ RUN bundle install --jobs $(nproc) --retry 3
 COPY . .
 
 ENV SECRET_KEY_BASE=dummy
+RUN yarn build
+RUN yarn build:css
+RUN yarn build:css:prefix
+RUN yarn build:css:compile
+
 RUN bundle exec rails assets:precompile
 
 # 起動スクリプトをコンテナにコピーして実行権限を付与
