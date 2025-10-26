@@ -41,19 +41,14 @@ RUN gem install bundler --version $BUNDLER_VERSION
 # Gem のインストール
 # --jobs $(nproc): 並列でインストール
 # --retry 3: 失敗時に3回リトライ
-RUN bundle install --jobs $(nproc) --retry 3
+RUN bundle install --jobs $(nproc) --retry 3 --without test
 
 #アプリケーションのソースコードをコピー
 COPY . .
-
-RUN bundle exec rails assets:precompile
-RUN bundle exec rails assets:clean
-RUN bundle exec rails db:migrate
-RUN bundle exec rails db:seed
 
 # Rails アプリケーションのポートを公開
 # EXPOSE 3000
 
 # コンテナ起動時に実行されるコマンド
 # development 環境では Rails サーバーを起動
-CMD ["bin/rails", "server", "-b", "0.0.0.0"]
+# CMD ["bin/rails", "server", "-b", "0.0.0.0"]
