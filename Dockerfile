@@ -47,6 +47,7 @@ RUN bundle install --jobs $(nproc) --retry 3
 COPY . .
 
 ENV SECRET_KEY_BASE=dummy
+RUN yarn install
 RUN yarn build
 RUN yarn build:css
 RUN yarn build:css:prefix
